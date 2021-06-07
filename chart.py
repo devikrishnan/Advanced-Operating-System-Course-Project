@@ -23,7 +23,7 @@ class Chart(QWidget):
 
 	# for the background and title
         self.chart.setAnimationOptions(QChart.SeriesAnimations)
-        self.chart.setTitle("DonutChart Example")
+        self.chart.setTitle("Size Distribution")
         self.chart.setTheme(QChart.ChartThemeBlueCerulean)
 
         self.chartview = QChartView(self.chart)

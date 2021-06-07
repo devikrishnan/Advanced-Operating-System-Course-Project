@@ -52,7 +52,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
     def file_open(self):
-        print('called')
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', options=QtWidgets.QFileDialog.DontUseNativeDialog)
         classObj = FileOpen.openFile(name)
         print(classObj)

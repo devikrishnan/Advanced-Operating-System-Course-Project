@@ -131,10 +131,10 @@ class FileOpen():
         print(pie.keys())
         
         # print the numpy array
-        print(values)
+        '''print(values)
         print(type(values))
         total = sum(values)
         new = [value * 100. / total for value in values]
-        print(new)
+        print(new)'''
         return pie
 
