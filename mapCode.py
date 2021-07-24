@@ -69,14 +69,18 @@ class FileOpen():
 
                         if args.combine:
                             if '.a(' in source:
-                                source = source[:source.index('.a(') + 2]
+                                #source = source[:source.index('.a(') + 2]
                                 if 'cm3' in source:
                                     libra=source[source.index('cm3')+4:source.index('.a')]
+                                    obj_file=source[source.index('.a')+3:source.index(')')]
                                     lib_list.append(libra)
+                                    obj_list.append(obj_file)
                                 elif 'miosix' in source:
                                     #print(source)
                                     libra=source[source.index('miosix')+7:source.index('.a')]
+                                    obj_file=source[source.index('.a')+3:source.index(')')]
                                     lib_list.append(libra)
+                                    obj_list.append(obj_file)
                        
 
 
@@ -113,6 +117,10 @@ class FileOpen():
                 #part1['lib']=sumtotal_lib 
         pie={'pie1': {'lib':sumtotal_lib,'nonlib':sumtotal_nonlib}}
         pie['lib']={}
+        
+        for libs in lib_list:
+    	    pie[libs]={} 
+    
         for i in lib_list:
             libsize=0
             for s in sources:
@@ -120,7 +128,14 @@ class FileOpen():
                     size = size_of_source[s]
                     libsize=libsize+size.total()
             pie['lib'].update({i:libsize})
-
+	for i in lib_list:
+    	    for o in obj_list:
+                for s in sources:
+                    if i in s and o in s:
+                        size = size_by_source[s]
+                        objsize=size.total()
+                        pie[i].update({o:objsize})
+                        break
         #print(pie)
         
         result = {}
