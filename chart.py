@@ -45,15 +45,14 @@ class Chart(QWidget):
                 self.series.append(slice_)
        
             for slice in self.series.slices():
-                slice.setLabel(slice.label())
+                #slice.setLabel(slice.label())
+                slice.setLabel(slice.label()+ ' - ' + str(slice.value()/1000) + ' KB ')
+                
             
             self.chart.addSeries(self.series)
             self.frame.frame.hide()
             self.chart.show()
         else:
-            for m, item in self.data[key].items():
-                print(m,item)
-            
             self.table = TableView(self.data[key], len(self.data[key]), 1)
      
             if self.frame.ly.count() > 0:
@@ -61,18 +60,7 @@ class Chart(QWidget):
             
             self.frame.ly.addWidget(self.table)
             
-            
             self.frame.frame.show()
             self.chart.hide()         
              
           
-    #Show the update chart with the distribution of the selected slice
-    def handle_double_clicked(self, slice):
-        slice.setExploded()
-        slice.setLabelVisible()
-     
-        if slice.label() in self.data.keys():
-            print("slice",slice.label());
-            self.addSeries(slice.label())
-           
-

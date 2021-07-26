@@ -93,7 +93,6 @@ class Navigation(QtCore.QObject):
         action = self.toolbar.addAction(index.data())
         action.setData(QtCore.QPersistentModelIndex(index))
         self.listview.setRootIndex(index)
-        print(index.data())
         self.chart.addSeries(index.data())
         
         

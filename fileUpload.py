@@ -64,7 +64,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def file_open(self):
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', options=QtWidgets.QFileDialog.DontUseNativeDialog)
         classObj = FileOpen.openFile(name)
-        print(classObj)
         navigation = Navigation(classObj, self)
         self.addToolBar(navigation.toolbar)
         self.insert_page(navigation.horizontalGroupBox)
@@ -92,7 +91,7 @@ if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)
     w = MainWindow()
-    w.resize(1000,800)
+    w.resize(1300,1000)
     w.show()
     sys.exit(app.exec_())
     
