@@ -13,6 +13,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         
+        self.setWindowTitle('Map Analyzer')
+        
         self.label3 = QtWidgets.QLabel()
         self.label3.setGeometry(QtCore.QRect(10, 210, 500, 23))
         self.label3.setObjectName("label3")
