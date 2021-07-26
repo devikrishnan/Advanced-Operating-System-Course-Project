@@ -100,71 +100,71 @@ class FileOpen():
 
 
 
-lib_list=set(lib_list)
+        lib_list=set(lib_list)
 
 
 
-sources = list(size_by_source.keys())
-sources.sort(key = lambda x: size_by_source[x].total())
+        sources = list(size_by_source.keys())
+        sources.sort(key = lambda x: size_by_source[x].total())
 
 #print(sources)
-pie={}
+        pie={}
 
 #listing size of overall lib and non lib 
-sumtotal_lib=0
-sumtotal_nonlib=0
-for s in sources:
+        sumtotal_lib=0
+        sumtotal_nonlib=0
+        for s in sources:
     #print(s)   
-    if 'main.o' in s: #need to chnage this condition for non lib to consider only the text and data
+            if 'main.o' in s: #need to chnage this condition for non lib to consider only the text and data
         #print(s)
-        size = size_by_source[s]
-        sumtotal_nonlib += size.total()
-    elif "*fill*" not in s and not s.endswith("boot.o"): 
+                size = size_by_source[s]
+                sumtotal_nonlib += size.total()
+            elif "*fill*" not in s and not s.endswith("boot.o"): 
         #print(s)                      #need to change 
-        size = size_by_source[s]
-        sumtotal_lib += size.total() 
+                size = size_by_source[s]
+                sumtotal_lib += size.total() 
 
 
-pie={'pie1': {'lib':sumtotal_lib,'nonlib':sumtotal_nonlib}}
-pie['lib']={}
+        pie={'pie1': {'lib':sumtotal_lib,'nonlib':sumtotal_nonlib}}
+        pie['lib']={}
 
 
-for libs in lib_list:
-    pie[libs]={}
+        for libs in lib_list:
+            pie[libs]={}
 
 #listing overall size of each lib 
-for i in lib_list:
-    libsize=0
+        for i in lib_list:
+            libsize=0
     #print("********************************")
-    for s in sources:
-        if i in s:
+            for s in sources:
+                if i in s:
             #print(s)
-            size = size_by_source[s]
-            libsize=libsize+size.total()
-    pie['lib'].update({i:libsize})
+                    size = size_by_source[s]
+                    libsize=libsize+size.total()
+            pie['lib'].update({i:libsize})
 
 #listing size of each object file inside each lib
-for i in lib_list:
-    for o in obj_list:
-        for s in sources:
+        for i in lib_list:
+            for o in obj_list:
+                for s in sources:
             #print(s)
-            if i in s and o in s:
-                size = size_by_source[s]
-                objsize=size.total()
-                pie[i].update({o:objsize})
-                break
+                    if i in s and o in s:
+                        size = size_by_source[s]
+                        objsize=size.total()
+                        pie[i].update({o:objsize})
+                        break
 
-json_data={'map_file':{'library':{}}}
-for i in lib_list:
-    json_data['map_file']['library'][i]="obj_files"
+        json_data={'map_file':{'library':{}}}
+        for i in lib_list:
+            json_data['map_file']['library'][i]="obj_files"
 
         
-        result = {}
+                result = {}
 
             
         
-        values = np.fromiter(pie['pie1'].values(), dtype=int)
-        print(pie.keys())
+                values = np.fromiter(pie['pie1'].values(), dtype=int)
+                print(pie.keys())
         
         # print the numpy array
         '''print(values)
@@ -172,5 +172,5 @@ for i in lib_list:
         total = sum(values)
         new = [value * 100. / total for value in values]
         print(new)'''
-        return pie , json_data
+                return pie , json_data
 
