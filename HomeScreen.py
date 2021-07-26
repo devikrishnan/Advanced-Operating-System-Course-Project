@@ -13,7 +13,7 @@ class HomeScreen(QtCore.QObject):
         self.gridLayout.setObjectName("gridLayout")
         
         self.label1 = QtWidgets.QLabel()
-        self.label1.setText('Welcome to PyQt5 example')
+        self.label1.setText('Map Analyzer')
         self.label1.setAutoFillBackground(True)
         self.label1.setFont(QtGui.QFont("Times", 20,weight=QtGui.QFont.Bold))
         self.label1.setAlignment(Qt.AlignCenter)

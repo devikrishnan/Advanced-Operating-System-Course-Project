@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QPushButton,QHBoxLayout, QVBoxLayout, QApplication, QStackedWidget, QLabel
+from PyQt5.QtWidgets import QWidget, QPushButton,QHBoxLayout, QVBoxLayout, QApplication, QStackedWidget, QLabel, QToolBar
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
-from chart import Chart
-from HomeScreen import HomeScreen
 import json
 
+from HomeScreen import HomeScreen
+from Navigation import Navigation
 from mapCode import FileOpen
           
 
@@ -43,10 +43,20 @@ class MainWindow(QtWidgets.QMainWindow):
         vbox.addWidget(self.stacked_widget)
         vbox.addLayout(hbox)
         
+       
+        #add the to the main window
+        self.toolbar = QToolBar("Edit", self)
+          
         h = HomeScreen(self)
         h.pushButton.clicked.connect(self.file_open)
         self.insert_page(h.centralwidget)
-          
+        
+        self.addToolBar(self.toolbar)
+        
+        #start with the toolbar hidden
+        self.toolbar.toggleViewAction().setChecked(True)
+        self.toolbar.toggleViewAction().trigger()
+        
         # create main layout
         widget.setLayout(vbox)
 
@@ -54,13 +64,12 @@ class MainWindow(QtWidgets.QMainWindow):
     def file_open(self):
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', options=QtWidgets.QFileDialog.DontUseNativeDialog)
         classObj = FileOpen.openFile(name)
-        print(classObj)
-        chart = Chart('pie1', classObj, self)
-        self.insert_page(chart.chartview)
-        
+        navigation = Navigation(classObj, self)
+        self.addToolBar(navigation.toolbar)
+        self.insert_page(navigation.horizontalGroupBox)
+      
         
     def set_button_state(self, index):
-        #self.prev_button.setEnabled(index > 0)
         n_pages = len(self.stacked_widget)
         self.btn_Action.setEnabled( index % n_pages < n_pages - 1)
         
@@ -74,6 +83,7 @@ class MainWindow(QtWidgets.QMainWindow):
         new_index = self.stacked_widget.currentIndex()+1
         if new_index < len(self.stacked_widget):
             self.stacked_widget.setCurrentIndex(new_index)
+            self.toolbar.toggleViewAction().trigger()
     
 
 
@@ -81,7 +91,7 @@ if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)
     w = MainWindow()
-    w.resize(800,600)
+    w.resize(1300,1000)
     w.show()
     sys.exit(app.exec_())
     
