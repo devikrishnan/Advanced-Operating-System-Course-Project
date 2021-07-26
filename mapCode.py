@@ -125,7 +125,7 @@ class FileOpen():
                 sumtotal_lib += size.total() 
 
 
-        pie={'pie1': {'lib':sumtotal_lib,'nonlib':sumtotal_nonlib}}
+        pie={'map_file': {'lib':sumtotal_lib,'nonlib':sumtotal_nonlib}}
         pie['lib']={}
 
 
@@ -154,17 +154,17 @@ class FileOpen():
                         pie[i].update({o:objsize})
                         break
 
-        json_data={'map_file':{'library':{}}}
+        json_data={'map_file':{'lib':{}}}
         for i in lib_list:
-            json_data['map_file']['library'][i]="obj_files"
+            json_data['map_file']['lib'][i]="obj_files"
 
         
-                result = {}
+        result = {}
 
             
         
-                values = np.fromiter(pie['pie1'].values(), dtype=int)
-                print(pie.keys())
+        values = np.fromiter(pie['map_file'].values(), dtype=int)
+        print(pie.keys())
         
         # print the numpy array
         '''print(values)
@@ -172,5 +172,5 @@ class FileOpen():
         total = sum(values)
         new = [value * 100. / total for value in values]
         print(new)'''
-                return pie , json_data
+        return pie , json_data
 

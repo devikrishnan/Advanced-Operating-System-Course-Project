@@ -42,12 +42,12 @@ def dict_to_model(item, d):
 
 class Navigation(QtCore.QObject):
     clicked = QtCore.pyqtSignal(QtCore.QModelIndex)
-    def __init__(self, data, parent=None):
+    def __init__(self, chartData, navData , parent=None):
         super(Navigation, self).__init__(parent)
         self.toolbar = QtWidgets.QToolBar()
         self.toolbar.actionTriggered.connect(self.on_actionTriggered)     
         self.model =  QtGui.QStandardItemModel(self)
-        dict_to_model(self.model.invisibleRootItem(), json_data)
+        dict_to_model(self.model.invisibleRootItem(), navData)
         it = self.model.item(0, 0)
         ix = self.model.indexFromItem(it)
         root_action = self.toolbar.addAction(it.text())
@@ -65,7 +65,7 @@ class Navigation(QtCore.QObject):
         self.gridLayout.addWidget(self.listview, 0, 0, 2, 1)
         
         self.frame = QtWidgets.QFrame()
-        self.chart = Chart('pie1', data, self)
+        self.chart = Chart('map_file', chartData, self)
                      
         self.ly = QtWidgets.QVBoxLayout()
         self.frame.setLayout(self.ly)

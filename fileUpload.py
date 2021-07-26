@@ -63,8 +63,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def file_open(self):
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', options=QtWidgets.QFileDialog.DontUseNativeDialog)
-        classObj = FileOpen.openFile(name)
-        navigation = Navigation(classObj, self)
+        chartData, navData = FileOpen.openFile(name)
+        navigation = Navigation(chartData, navData , self)
         self.addToolBar(navigation.toolbar)
         self.insert_page(navigation.horizontalGroupBox)
       
