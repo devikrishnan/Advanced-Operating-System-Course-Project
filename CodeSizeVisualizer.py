@@ -13,7 +13,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         
-        self.setWindowTitle('Map Analyzer')
+        self.setWindowTitle('Code Size Visualizer')
         
         self.label3 = QtWidgets.QLabel()
         self.label3.setGeometry(QtCore.QRect(10, 210, 500, 23))
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)
     w = MainWindow()
-    w.resize(1300,1000)
+    w.showMaximized()
     w.show()
     sys.exit(app.exec_())
     
