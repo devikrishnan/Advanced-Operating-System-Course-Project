@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QPushButton,QHBoxLayout, QVBoxLayout, QApplication, QStackedWidget, QLabel, QGroupBox
+from PyQt5.QtWidgets import QWidget, QPushButton,QHBoxLayout, QVBoxLayout, QApplication, QStackedWidget, QLabel, QGroupBox, QSplitter
 from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
 from PyQt5.QtCore import pyqtSlot,  Qt
 from PyQt5.QtGui import *
@@ -8,22 +8,6 @@ import sip
 
 from tableView import TableView
 from chart import Chart
-
-
-json_data = {
-  "pie1":{
-    "lib":{
-        "libgcc":["magnesium", "aluminium"],
-        "libc":["magnesium", "manganese", "aluminium"],
-        "libmiosix":["copper", "aluminium"],
-        "libstdc++":["Beryllium", "copper"],
-       },
-    "nonlib":{
-         "Beryllium copper":["Beryllium", "copper"],
-   	 "Billon":["gold", "copper"],
-         "Copper tungsten":["Tungsten","copper"],
-     }
-}}
 
 
 
@@ -61,8 +45,9 @@ class Navigation(QtCore.QObject):
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
         
+        self.listview.setFixedWidth(350)
      
-        self.gridLayout.addWidget(self.listview, 0, 0, 2, 1)
+        self.gridLayout.addWidget(self.listview, 0, 0, 5, 1)
         
         self.frame = QtWidgets.QFrame()
         self.chart = Chart('map_file', chartData, self)
@@ -78,6 +63,8 @@ class Navigation(QtCore.QObject):
         
         self.gridLayout.addLayout(self.gridLayout2, 0, 2, 0, 1)
         self.gridLayout.addLayout(self.gridLayout1, 0, 2, 0, 1)  
+        
+        
         
         self.horizontalGroupBox = QGroupBox()
         self.horizontalGroupBox.setLayout(self.gridLayout)
