@@ -44,9 +44,13 @@ class Chart(QWidget):
                 slice_ = QPieSlice(str(key), value)
                 self.series.append(slice_)
        
+            self.series.setLabelsVisible()
+            self.series.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
             for slice in self.series.slices():
                 #slice.setLabel(slice.label())
                 slice.setLabel(slice.label()+ ' - ' + str(slice.value()/1000) + ' KB ')
+                slice.setLabelPosition(QPieSlice.LabelInsideNormal )
+               
                 
             
             self.chart.addSeries(self.series)
