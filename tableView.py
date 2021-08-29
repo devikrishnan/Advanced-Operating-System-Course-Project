@@ -24,5 +24,4 @@ class TableView(QTableWidget):
         self.horizontalHeader().setStretchLastSection(True) 
         
         
-        
 

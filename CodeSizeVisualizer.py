@@ -22,17 +22,13 @@ class MainWindow(QtWidgets.QMainWindow):
         widget = QtWidgets.QWidget()
         self.setCentralWidget(widget)
      
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        #hbox.addWidget(self.btn_Action)
-        
         vbox = QVBoxLayout()
         vbox.addWidget(self.stacked_widget)
-        vbox.addLayout(hbox)
         
-       
+        
         #add the to the main window
         self.toolbar = QToolBar("Edit", self)
+          
           
         h = HomeScreen(self)
         self.chartBtn = h.viewChartBtn
@@ -52,7 +48,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
     def file_open(self):
-        filter = "(*.map)"
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', "", "*.map",options=QtWidgets.QFileDialog.DontUseNativeDialog)
         self.lineEdit.setText(name)
         chartData, navData = FileOpen.openFile(name)

@@ -43,11 +43,11 @@ class HomeScreen(QtCore.QObject):
         
         self.viewChartBtn = QtWidgets.QPushButton()
         self.viewChartBtn.setObjectName("viewChartBtn")
+        self.viewChartBtn.setText("View Chart")  
         
         self.gridLayout3 = QtWidgets.QGridLayout()
         self.gridLayout3.addWidget(self.viewChartBtn)
-        self.viewChartBtn.setText("View Chart")        
-        
+                    
         self.gridLayout.addLayout(self.gridLayout2, 0, 0, 7, 2)
         self.gridLayout.addLayout(self.gridLayout1, 0, 0, 1, 2)
         self.gridLayout.addLayout(self.gridLayout3, 0, 0, 8, 1)
