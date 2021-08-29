@@ -65,7 +65,6 @@ class Navigation(QtCore.QObject):
         self.gridLayout.addLayout(self.gridLayout1, 0, 2, 0, 1)  
         
         
-        
         self.horizontalGroupBox = QGroupBox()
         self.horizontalGroupBox.setLayout(self.gridLayout)
 

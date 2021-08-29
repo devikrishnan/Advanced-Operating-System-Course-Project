@@ -18,9 +18,6 @@ class HomeScreen(QtCore.QObject):
         self.label1.setFont(QtGui.QFont("Times", 20,weight=QtGui.QFont.Bold))
         self.label1.setAlignment(Qt.AlignCenter)
         
-        self.label3 = QtWidgets.QLabel()
-        self.label3.setGeometry(10, 210, 500, 23)
-        self.label3.setObjectName("label3")
         
         self.gridLayout1 = QtWidgets.QGridLayout()
         self.gridLayout1.addWidget(self.label1, 0, 0)
@@ -42,9 +39,18 @@ class HomeScreen(QtCore.QObject):
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setObjectName("pushButton")
         self.gridLayout2.addWidget(self.pushButton, 0, 2, 1, 1)
+               
+        
+        self.viewChartBtn = QtWidgets.QPushButton()
+        self.viewChartBtn.setObjectName("viewChartBtn")
+        
+        self.gridLayout3 = QtWidgets.QGridLayout()
+        self.gridLayout3.addWidget(self.viewChartBtn)
+        self.viewChartBtn.setText("View Chart")        
         
         self.gridLayout.addLayout(self.gridLayout2, 0, 0, 7, 2)
         self.gridLayout.addLayout(self.gridLayout1, 0, 0, 1, 2)
+        self.gridLayout.addLayout(self.gridLayout3, 0, 0, 8, 1)
         
         self.label_2.setText("File Name")
         self.pushButton.setText("Browse")
