@@ -15,20 +15,21 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.setWindowTitle('Code Size Visualizer')
         
-        self.label3 = QtWidgets.QLabel()
+        '''self.label3 = QtWidgets.QLabel()
         self.label3.setGeometry(QtCore.QRect(10, 210, 500, 23))
-        self.label3.setObjectName("label3")
+        self.label3.setObjectName("label3")'''
         
         self.btn_Action = QtWidgets.QPushButton()
-        self.btn_Action.setGeometry(QtCore.QRect(220, 200, 75, 23))
+        #self.btn_Action.setGeometry(QtCore.QRect(50, 200, 75, 23))
         self.btn_Action.setObjectName("btn_Action")
         
         self.gridLayout3 = QtWidgets.QGridLayout()
-        self.gridLayout3.addWidget(self.label3, 0, 3, 7, 8)
-        self.gridLayout3.addWidget(self.btn_Action, 0, 3, 3, 3)
+        #self.gridLayout3.addWidget(self.label3, 0, 3, 7, 8)
+        #self.gridLayout3.addWidget(self.btn_Action, 0, 3, 3, 3)
+       
         
         self.btn_Action.setText("View Chart")        
-        self.label3.setText('File Uploaded, check console for its contents')
+        #self.label3.setText('File Uploaded, check console for its contents')
         
         self.stacked_widget = QStackedWidget()
         self.stacked_widget.currentChanged.connect(self.set_button_state)
@@ -64,6 +65,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
     def file_open(self):
+        #self.label3.setText("File Uploaded, check console for its contents")
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', options=QtWidgets.QFileDialog.DontUseNativeDialog)
         chartData, navData = FileOpen.openFile(name)
         navigation = Navigation(chartData, navData , self)

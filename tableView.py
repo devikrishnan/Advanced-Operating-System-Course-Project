@@ -21,5 +21,8 @@ class TableView(QTableWidget):
             self.setItem(n, 0, newitem)
         self.setVerticalHeaderLabels(rowHeaders)
         self.setHorizontalHeaderLabels(colHeaders)
+        self.horizontalHeader().setStretchLastSection(True) 
+        
+        
         
 

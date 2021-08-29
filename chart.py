@@ -45,14 +45,17 @@ class Chart(QWidget):
                 self.series.append(slice_)
        
             self.series.setLabelsVisible()
-            self.series.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
+            self.series.setLabelsPosition(QPieSlice.LabelInsideNormal )
+            
             for slice in self.series.slices():
                 #slice.setLabel(slice.label())
                 slice.setLabel(slice.label()+ ' - ' + str(slice.value()/1000) + ' KB ')
-                slice.setLabelPosition(QPieSlice.LabelInsideNormal )
-               
-                
-            
+                self.label3 = QtWidgets.QLabel()
+                self.label3.setGeometry(QtCore.QRect(10, 210, 500, 23))
+                self.label3.setText('File Uploaded, check console for its contents')
+
+
+
             self.chart.addSeries(self.series)
             self.frame.frame.hide()
             self.chart.show()
