@@ -26,6 +26,8 @@ class Chart(QWidget):
 	# for the background and title
         self.chart.setAnimationOptions(QChart.SeriesAnimations)
         self.chart.setTitle("Code Size Visualizer")
+        self.chart.legend().setVisible(True)
+        self.chart.legend().setAlignment(Qt.AlignRight)
         self.chart.setTheme(QChart.ChartThemeBlueCerulean)
 
         self.chartview = QChartView(self.chart)
@@ -45,7 +47,8 @@ class Chart(QWidget):
                 self.series.append(slice_)
        
             self.series.setLabelsVisible()
-            self.series.setLabelsPosition(QPieSlice.LabelInsideNormal )
+            self.series.setLabelsPosition(QPieSlice.LabelInsideHorizontal )
+
             
             for slice in self.series.slices():
                 #slice.setLabel(slice.label())
