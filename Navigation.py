@@ -10,22 +10,6 @@ from tableView import TableView
 from chart import Chart
 
 
-json_data = {
-  "pie1":{
-    "lib":{
-        "libgcc":["magnesium", "aluminium"],
-        "libc":["magnesium", "manganese", "aluminium"],
-        "libmiosix":["copper", "aluminium"],
-        "libstdc++":["Beryllium", "copper"],
-       },
-    "nonlib":{
-         "Beryllium copper":["Beryllium", "copper"],
-   	 "Billon":["gold", "copper"],
-         "Copper tungsten":["Tungsten","copper"],
-     }
-}}
-
-
 
 def dict_to_model(item, d):
     if isinstance(d, dict):
@@ -61,6 +45,7 @@ class Navigation(QtCore.QObject):
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
         
+        self.listview.setFixedWidth(350)
      
         self.gridLayout.addWidget(self.listview, 0, 0, 2, 1)
         
@@ -78,6 +63,7 @@ class Navigation(QtCore.QObject):
         
         self.gridLayout.addLayout(self.gridLayout2, 0, 2, 0, 1)
         self.gridLayout.addLayout(self.gridLayout1, 0, 2, 0, 1)  
+        
         
         self.horizontalGroupBox = QGroupBox()
         self.horizontalGroupBox.setLayout(self.gridLayout)

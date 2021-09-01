@@ -25,7 +25,9 @@ class Chart(QWidget):
 
 	# for the background and title
         self.chart.setAnimationOptions(QChart.SeriesAnimations)
-        self.chart.setTitle("DonutChart Example")
+        self.chart.setTitle("Code Size Visualizer")
+        self.chart.legend().setVisible(True)
+        self.chart.legend().setAlignment(Qt.AlignRight)
         self.chart.setTheme(QChart.ChartThemeBlueCerulean)
 
         self.chartview = QChartView(self.chart)
@@ -44,11 +46,15 @@ class Chart(QWidget):
                 slice_ = QPieSlice(str(key), value)
                 self.series.append(slice_)
        
+            self.series.setLabelsVisible()
+            self.series.setLabelsPosition(QPieSlice.LabelInsideHorizontal )
+
+            
             for slice in self.series.slices():
                 #slice.setLabel(slice.label())
                 slice.setLabel(slice.label()+ ' - ' + str(slice.value()/1000) + ' KB ')
-                
-            
+
+
             self.chart.addSeries(self.series)
             self.frame.frame.hide()
             self.chart.show()

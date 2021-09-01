@@ -14,12 +14,14 @@ class TableView(QTableWidget):
         
     def setData(self): 
         rowHeaders = []
-        colHeaders = ['Size']
+        colHeaders = ['Size in KB']
         for n, key in enumerate(sorted(self.data.keys())):
             rowHeaders.append(key)
-            newitem = QTableWidgetItem(str(self.data[key]/100))
+            newitem = QTableWidgetItem(str(self.data[key]/1000))
             self.setItem(n, 0, newitem)
         self.setVerticalHeaderLabels(rowHeaders)
         self.setHorizontalHeaderLabels(colHeaders)
+        self.horizontalHeader().setStretchLastSection(True) 
+        
         
 
