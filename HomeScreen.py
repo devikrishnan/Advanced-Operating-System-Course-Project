@@ -50,7 +50,7 @@ class HomeScreen(QtCore.QObject):
                     
         self.gridLayout.addLayout(self.gridLayout2, 0, 0, 7, 2)
         self.gridLayout.addLayout(self.gridLayout1, 0, 0, 1, 2)
-        self.gridLayout.addLayout(self.gridLayout3, 0, 0, 8, 1)
+        self.gridLayout.addLayout(self.gridLayout3, 0, 0, 8, 2)
         
         self.label_2.setText("File Name")
         self.pushButton.setText("Browse")

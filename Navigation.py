@@ -28,6 +28,7 @@ class Navigation(QtCore.QObject):
     clicked = QtCore.pyqtSignal(QtCore.QModelIndex)
     def __init__(self, chartData, navData , parent=None):
         super(Navigation, self).__init__(parent)
+        print('navdata',navData)
         self.toolbar = QtWidgets.QToolBar()
         self.toolbar.actionTriggered.connect(self.on_actionTriggered)     
         self.model =  QtGui.QStandardItemModel(self)

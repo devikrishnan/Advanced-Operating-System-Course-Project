@@ -42,7 +42,9 @@ class Chart(QWidget):
         
         #Show chartview only if the content length is less than 6. Otherwise show a table view    
         if len(self.data[key]) < 6:
+            #print('length',self.data, key)
             for key, value in self.data[key].items():
+                print('key, value',key, value)
                 slice_ = QPieSlice(str(key), value)
                 self.series.append(slice_)
        

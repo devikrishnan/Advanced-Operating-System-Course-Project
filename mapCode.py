@@ -5,12 +5,13 @@ import sys
 import os
 import argparse
 import numpy as np
+
 lib_list=[] #list of names of all library present
-obj_list=[] #list to store the names of all object files associated with libraries
+obj_list =[] #list to store the names of all object files associated with libraries
 nl_list=[] #list to store the names of non-library object files
 size_by_source = {}
 pie={} #dictionary to store the size division 
-sumtotal_lib=sumtotal_nonlib=0
+
 # DEFAULT NOT MENTIONED
 parser = argparse.ArgumentParser(description='Summarises the size of each libraries and each object file in a map file.')
 args = parser.parse_args()
@@ -38,63 +39,60 @@ class SectionSize():
 class FileOpen():
     def openFile(filename):
         lib_list = []
+        obj_list =[]
+        sumtotal_lib=sumtotal_nonlib=0
         print(filename)
         size_by_source = {}
         with open(filename) as f:
-                lines = iter(f)
-                for line in lines:
-                    if line.strip() == "Linker script and memory map":
-                        break
-
-                current_section = None
-                split_line = None
-                for line in lines:
-                    line = line.strip('\n')
-                    if split_line:
-                        # Glue a line that was split in two back together
-                        if line.startswith(' ' * 16):
-                            line = split_line + line
-                        else:  # Shouldn't happen
-                            print("Warning: discarding line ", split_line)
-                        split_line = None
-
-                    if line.startswith((".", " .", " *fill*")):       #if line startswith any of the following strings given
-                        pieces = line.split(None, 3)  # Don't split paths containing spaces   
-                        if line.startswith("."):    
-                            # Note: this line might be wrapped, with the size of the section
-                            # on the next line, but we ignore the size anyway and will ignore that line
-                            current_section = pieces[0]
-                        elif len(pieces) == 1 and len(line) > 14:
-                            # ld splits the rest of this line onto the next if the section name is too long
-                            split_line = line
-                        elif len(pieces) >= 3 and "=" not in pieces and "before" not in pieces:
-                            if pieces[0] == "*fill*":
-                                source = pieces[0]    #source = *fill*  pieces[-1] = size
-                                size = int(pieces[-1], 16)
-                            else:
-                                source = pieces[-1]                                            #last element of the pieces list = which is the path containing .a and .o
-                                size = int(pieces[-2], 16)
-
-                            if args.combine:                                                  
-                                if '.a(' in source:
-                                    # path/to/archive.a(object.o)
-                                    #Just to get the list of libraries and object files associated with it
-                                    if 'cm3' in source:
-                                        libra=source[source.rindex('/')+1:source.rindex('.a')+2]   
-                                        obj_file=source[source.index('.a')+3:source.index(')')]
-                                        lib_list.append(libra)
-                                        obj_list.append(obj_file)
-
-                                    elif 'miosix' in source:
-                                        libra=source[source.rindex('/')+1:source.rindex('.a')+2]
-                                        obj_file=source[source.index('.a')+3:source.index(')')]
-                                        lib_list.append(libra)
-                                        obj_list.append(obj_file)
-
+            lines = iter(f)
+            for line in lines:
+                if line.strip() == "Linker script and memory map":
+                    break
+            current_section = None
+            split_line = None
+            for line in lines:
+                line = line.strip('\n')
+                if split_line:
+                    # Glue a line that was split in two back together
+                    if line.startswith(' ' * 16):
+                        line = split_line + line
+                    else:  # Shouldn't happen
+                        print("Warning: discarding line ", split_line)
+                    split_line = None
+                if line.startswith((".", " .", " *fill*")):       #if line startswith any of the following strings given
+                    pieces = line.split(None, 3)  # Don't split paths containing spaces   
+                    if line.startswith("."):    
+                        # Note: this line might be wrapped, with the size of the section
+                        # on the next line, but we ignore the size anyway and will ignore that line
+                        current_section = pieces[0]
+                    elif len(pieces) == 1 and len(line) > 14:
+                        # ld splits the rest of this line onto the next if the section name is too long
+                        split_line = line
+                    elif len(pieces) >= 3 and "=" not in pieces and "before" not in pieces:
+                        if pieces[0] == "*fill*":
+                            source = pieces[0]    #source = *fill*  pieces[-1] = size
+                            size = int(pieces[-1], 16)
+                        else:
+                            source = pieces[-1]                                            #last element of the pieces list = which is the path containing .a and .o
+                            size = int(pieces[-2], 16)
+                        if args.combine:                                                  
+                            if '.a(' in source:
+                                # path/to/archive.a(object.o)
+                                #Just to get the list of libraries and object files associated with it
+                                if 'cm3' in source:
+                                    libra=source[source.rindex('/')+1:source.rindex('.a')+2]   
+                                    obj_file=source[source.index('.a')+3:source.index(')')]
+                                    lib_list.append(libra)
+                                    obj_list.append(obj_file)
+                                elif 'miosix' in source:
+                                    libra=source[source.rindex('/')+1:source.rindex('.a')+2]
+                                    obj_file=source[source.index('.a')+3:source.index(')')]
+                                    lib_list.append(libra)
+                                    obj_list.append(obj_file)
                     
-                            if source not in size_by_source:
-                                size_by_source[source] = SectionSize()
-                            size_by_source[source].add_section(current_section, size)
+                        if source not in size_by_source:
+                            size_by_source[source] = SectionSize()
+                        size_by_source[source].add_section(current_section, size)
 
 
             lib_list=set(lib_list)
@@ -133,7 +131,7 @@ class FileOpen():
                         size = size_by_source[s]
                         ofilesize=ofilesize+size.total()
                         pie['nonlib'].update({ofile:ofilesize})
-                    elif ofile == 'main.o':
+                    elif ofile == 'main.o' and 'main.o' in s:
                         size = size_by_source[s]
                         ofilesize=ofilesize+size.total()
                         pie['nonlib'].update({ofile:ofilesize})
@@ -162,9 +160,12 @@ class FileOpen():
                             objsize=objsize+size.total()
                             pie[i].update({o:objsize})
 
-        json_data={'map_file':{'lib':{}}}
+        json_data={'map_file':{'lib':{},'nonlib':{}}}
         for i in lib_list:
             json_data['map_file']['lib'][i]="obj_files"
+
+        for i in nl_list:
+            json_data['map_file']['nonlib']="obj_files"
 
         
         result = {}
@@ -172,7 +173,7 @@ class FileOpen():
             
         
         values = np.fromiter(pie['map_file'].values(), dtype=int)
-        print(pie.keys())
+        print(pie['nonlib'])
         
         # print the numpy array
         return pie , json_data
