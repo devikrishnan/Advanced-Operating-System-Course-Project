@@ -33,7 +33,7 @@ class Chart(QWidget):
         self.chartview = QChartView(self.chart)
         self.chartview.setRenderHint(QPainter.Antialiasing)
         
-        
+    #each section of the pie chart    
     def addSeries(self, key):
         self.chart.removeAllSeries()
         self.series = QPieSeries()
@@ -54,7 +54,7 @@ class Chart(QWidget):
             
             for slice in self.series.slices():
                 #slice.setLabel(slice.label())
-                slice.setLabel(slice.label()+ ' - ' + str(slice.value()/1000) + ' KB ')
+                slice.setLabel(slice.label()+ ' - ' + str(slice.value()) + ' B ')
 
 
             self.chart.addSeries(self.series)

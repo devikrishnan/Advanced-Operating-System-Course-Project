@@ -1,3 +1,4 @@
+#for the navigation bar on top
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QPushButton,QHBoxLayout, QVBoxLayout, QApplication, QStackedWidget, QLabel, QGroupBox
 from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
@@ -10,7 +11,7 @@ from tableView import TableView
 from chart import Chart
 
 
-
+#converting the string from nav to model
 def dict_to_model(item, d):
     if isinstance(d, dict):
         for k, v in d.items():
@@ -23,7 +24,7 @@ def dict_to_model(item, d):
     else:
         item.appendRow(QtGui.QStandardItem(str(d)))
 
-
+#side list view
 class Navigation(QtCore.QObject):
     clicked = QtCore.pyqtSignal(QtCore.QModelIndex)
     def __init__(self, chartData, navData , parent=None):
@@ -60,7 +61,7 @@ class Navigation(QtCore.QObject):
         self.gridLayout1.addWidget(self.frame)
         
         self.gridLayout2 = QtWidgets.QGridLayout()
-        self.gridLayout2.addWidget(self.chart.chartview)    
+        self.gridLayout2.addWidget(self.chart.chartview)    #calling chart view
         
         self.gridLayout.addLayout(self.gridLayout2, 0, 2, 0, 1)
         self.gridLayout.addLayout(self.gridLayout1, 0, 2, 0, 1)  
@@ -82,8 +83,9 @@ class Navigation(QtCore.QObject):
         self.listview.setRootIndex(index)
         self.chart.addSeries(index.data())
         
-        
+       
     #make the breadcrumbs clickable in order to go back and forth
+    #no children for object files, hence it is not listed in the nav bar
     @QtCore.pyqtSlot(QtWidgets.QAction)
     def on_actionTriggered(self, action):
         ix = action.data()

@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.setWindowTitle('Code Size Visualizer')
         
-        self.stacked_widget = QStackedWidget()
+        self.stacked_widget = QStackedWidget() #to show different pages
         self.stacked_widget.currentChanged.connect(self.set_button_state)
         
         
@@ -29,8 +29,8 @@ class MainWindow(QtWidgets.QMainWindow):
         #add the to the main window
         self.toolbar = QToolBar("Edit", self)
           
-          
-        h = HomeScreen(self)
+        #on file upload chart button gets enables and upon pressing it goes to next page  
+        h = HomeScreen(self) #calling this first
         self.chartBtn = h.viewChartBtn
         self.lineEdit = h.lineEdit
         self.chartBtn.clicked.connect(self.next_page)
@@ -46,7 +46,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # create main layout
         widget.setLayout(vbox)
 
-        
+    #FILE OPEN    
     def file_open(self):
         name, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', "", "*.map",options=QtWidgets.QFileDialog.DontUseNativeDialog)
         self.lineEdit.setText(name)
