@@ -1,3 +1,17 @@
+"""Copyright (C) 2021 @gayathri,@devikrishnan
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
 from __future__ import print_function
 
@@ -84,7 +98,7 @@ class FileOpen():
                                     obj_file=source[source.index('.a')+3:source.index(')')]
                                     lib_list.append(libra)
                                     obj_list.append(obj_file)
-                                elif 'miosix' in source:
+                                elif 'miosix' in source:                                   #not necessary, could be combined into one condition
                                     libra=source[source.rindex('/')+1:source.rindex('.a')+2]
                                     obj_file=source[source.index('.a')+3:source.index(')')]
                                     lib_list.append(libra)
